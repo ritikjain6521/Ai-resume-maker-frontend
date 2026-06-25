@@ -4,6 +4,26 @@ import App from './App.jsx';
 import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { API } from './config/api';
+
+// Intercept fetch requests to add Authorization header for cross-domain auth
+const originalFetch = window.fetch;
+window.fetch = async function(url, options = {}) {
+  if (typeof url === 'string' && url.startsWith(API)) {
+    try {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (userInfo && userInfo.token) {
+        options.headers = {
+          ...options.headers,
+          Authorization: `Bearer ${userInfo.token}`
+        };
+      }
+    } catch (e) {
+      // Ignore JSON parse errors
+    }
+  }
+  return originalFetch.call(this, url, options);
+};
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
