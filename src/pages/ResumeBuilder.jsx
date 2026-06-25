@@ -23,7 +23,7 @@ import JobMatcher from '../components/resume/JobMatcher';
 import ResumePreview from '../components/resume/ResumePreview';
 
 // ... (We'll use a mocked API for saving to avoid breaking if backend isn't up)
-const API = `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api`;
+const API = 'http://localhost:5000/api';
 
 const TABS = [
   { id: 'personal', label: 'Personal Info' },
@@ -437,7 +437,6 @@ const ResumeBuilder = () => {
           sectionScores={atsSectionScores}
           strengthLevel={atsStrengthLevel}
           onClose={() => setShowAtsModal(false)}
-          onApplyAndSave={handleSave}
         />
       )}
 

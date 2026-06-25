@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSkills } from '../../redux/slices/resumeSlice';
-import { X, AlertCircle, CheckCircle2, TrendingUp, Search, AlertTriangle, PlusCircle, Save, CheckCheck } from 'lucide-react';
+import { X, AlertCircle, CheckCircle2, TrendingUp, Search, AlertTriangle, PlusCircle } from 'lucide-react';
 
 const STRENGTH_COLORS = {
   Weak: { bar: 'bg-rose-500', text: 'text-rose-400', bg: 'bg-rose-500/10' },
@@ -59,12 +58,9 @@ const ATSReport = ({
   sectionScores = {},
   strengthLevel = 'Fair',
   onClose,
-  onApplyAndSave,
 }) => {
   const dispatch = useDispatch();
   const currentSkills = useSelector(state => state.resume.currentResume.skills) || [];
-  const [isSaving, setIsSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
   
   const strength = STRENGTH_COLORS[strengthLevel] || STRENGTH_COLORS.Fair;
   const strengthPct = { Weak: 20, Fair: 40, Good: 60, Strong: 80, Excellent: 100 }[strengthLevel] || 40;
@@ -73,25 +69,6 @@ const ATSReport = ({
     const newSkills = [...new Set([...currentSkills, ...missingKeywords])];
     dispatch(updateSkills(newSkills));
     alert('Keywords successfully added to your Skills section!');
-  };
-
-  const handleApplyAndSave = async () => {
-    setIsSaving(true);
-    // 1. Auto-add all missing keywords to skills
-    if (missingKeywords.length > 0) {
-      const newSkills = [...new Set([...currentSkills, ...missingKeywords])];
-      dispatch(updateSkills(newSkills));
-    }
-    // 2. Trigger the resume save from parent
-    if (onApplyAndSave) {
-      await onApplyAndSave();
-    }
-    setIsSaving(false);
-    setSaved(true);
-    // Auto-close after showing success for 1.5 seconds
-    setTimeout(() => {
-      onClose();
-    }, 1500);
   };
 
   return (
@@ -215,26 +192,9 @@ const ATSReport = ({
           )}
         </div>
 
-        <div className="p-5 border-t border-white/5 shrink-0 space-y-3">
-          {saved ? (
-            <div className="w-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 animate-in fade-in duration-300">
-              <CheckCheck size={18} /> Resume Updated & Saved Successfully!
-            </div>
-          ) : (
-            <button
-              onClick={handleApplyAndSave}
-              disabled={isSaving}
-              className="w-full bg-primary-500 hover:bg-primary-600 disabled:bg-primary-500/50 disabled:cursor-not-allowed text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary-500/25"
-            >
-              {isSaving ? (
-                <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Applying improvements & saving...</>
-              ) : (
-                <><Save size={16} /> Got it — Apply improvements & Save Resume!</>
-              )}
-            </button>
-          )}
-          <button onClick={onClose} className="w-full text-slate-400 hover:text-white text-sm transition-colors py-1">
-            Close without saving
+        <div className="p-5 border-t border-white/5 shrink-0">
+          <button onClick={onClose} className="w-full bg-primary-500 hover:bg-primary-600 text-white py-3 rounded-xl font-semibold transition-colors">
+            Got it — I'll improve my resume!
           </button>
         </div>
       </div>
