@@ -18,7 +18,7 @@ const LandingPage = () => {
   const handlePayment = async (planName, amount) => {
     setLoadingPlan(planName);
     try {
-      const res = await fetch('http://localhost:5000/api/payments/create-order', {
+      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/payments/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan: planName, amount })
@@ -35,7 +35,7 @@ const LandingPage = () => {
         description: `Upgrade to ${planName} Plan`,
         order_id: orderData.id,
         handler: async function (response) {
-          const verifyRes = await fetch('http://localhost:5000/api/payments/verify', {
+          const verifyRes = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/payments/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

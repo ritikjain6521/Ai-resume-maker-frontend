@@ -22,7 +22,7 @@ const GrammarChecker = ({ textToCheck = '', onClose }) => {
     if (!textToCheck.trim()) return;
     setIsChecking(true);
     try {
-      const res = await fetch('http://localhost:5000/api/ai/grammar-check', {
+      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/ai/grammar-check`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: textToCheck }),

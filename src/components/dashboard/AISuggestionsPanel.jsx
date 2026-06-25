@@ -10,7 +10,7 @@ const AISuggestionsPanel = ({ role = 'Software Engineer', skills = [] }) => {
   const fetchSuggestions = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/ai/suggest-keywords', {
+      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/ai/suggest-keywords`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ role, skills }),

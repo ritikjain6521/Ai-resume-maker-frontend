@@ -45,7 +45,7 @@ const Pricing = () => {
         return;
       }
 
-      const res = await fetch('http://localhost:5000/api/payments/create-order', {
+      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/payments/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -64,7 +64,7 @@ const Pricing = () => {
         order_id: orderData.id,
         handler: async function (response) {
           try {
-            const verifyRes = await fetch('http://localhost:5000/api/payments/verify', {
+            const verifyRes = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/payments/verify`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               credentials: 'include',

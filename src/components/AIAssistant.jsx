@@ -4,7 +4,7 @@ import { MessageCircle, X, Send, Mic, MicOff, Volume2, VolumeX, Loader2, Lock } 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const API = 'http://localhost:5000/api';
+const API = `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api`;
 
 const AIAssistant = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
