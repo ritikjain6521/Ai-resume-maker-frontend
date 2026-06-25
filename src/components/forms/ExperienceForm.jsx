@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addExperience, updateExperience, deleteExperience } from '../../redux/slices/resumeSlice';
 import { Plus, Trash2, Wand2, Loader2 } from 'lucide-react';
-
-const API = `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api`;
+import { API } from '../../config/api';
 
 const ExperienceForm = () => {
   const dispatch = useDispatch();

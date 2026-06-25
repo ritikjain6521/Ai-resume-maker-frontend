@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setGrammarData, applyGrammarFix } from '../../redux/slices/resumeSlice';
 import { SpellCheck, Loader2, CheckCircle2, AlertCircle, X, Check } from 'lucide-react';
 import SubscriptionGate from '../SubscriptionGate';
+import { API } from '../../config/api';
 
 const TYPE_COLORS = {
   Grammar: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
@@ -22,7 +23,7 @@ const GrammarChecker = ({ textToCheck = '', onClose }) => {
     if (!textToCheck.trim()) return;
     setIsChecking(true);
     try {
-      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/ai/grammar-check`, {
+      const res = await fetch(`${API}/ai/grammar-check`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: textToCheck }),

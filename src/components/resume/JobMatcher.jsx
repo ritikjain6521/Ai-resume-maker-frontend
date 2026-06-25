@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setJobMatchData } from '../../redux/slices/resumeSlice';
 import { Target, Loader2, FileText, CheckCircle2 } from 'lucide-react';
 import SubscriptionGate from '../SubscriptionGate';
+import { API } from '../../config/api';
 
 const JobMatcher = ({ resumeData }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const JobMatcher = ({ resumeData }) => {
     if (!jobDescription.trim()) return;
     setIsMatching(true);
     try {
-      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/ai/optimize-resume`, {
+      const res = await fetch(`${API}/ai/optimize-resume`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ resumeData, jobDescription }),

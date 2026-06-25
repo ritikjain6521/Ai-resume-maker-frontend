@@ -7,8 +7,7 @@ import {
 } from 'lucide-react';
 import { setResumes } from '../redux/slices/resumeSlice';
 import ResumeCard from '../components/dashboard/ResumeCard';
-
-const API = `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api`;
+import { API } from '../config/api';
 
 const PLAN_LIMITS = { Basic: 2, Premium: Infinity, Pro: Infinity };
 

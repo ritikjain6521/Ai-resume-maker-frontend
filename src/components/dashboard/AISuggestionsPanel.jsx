@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Sparkles, ChevronDown, ChevronUp, Plus, Award, Zap, Briefcase, TrendingUp } from 'lucide-react';
 import SubscriptionGate from '../SubscriptionGate';
+import { API } from '../../config/api';
 
 const AISuggestionsPanel = ({ role = 'Software Engineer', skills = [] }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -10,7 +11,7 @@ const AISuggestionsPanel = ({ role = 'Software Engineer', skills = [] }) => {
   const fetchSuggestions = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/ai/suggest-keywords`, {
+      const res = await fetch(`${API}/ai/suggest-keywords`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ role, skills }),

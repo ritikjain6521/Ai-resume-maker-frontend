@@ -23,7 +23,7 @@ import JobMatcher from '../components/resume/JobMatcher';
 import ResumePreview from '../components/resume/ResumePreview';
 
 // ... (We'll use a mocked API for saving to avoid breaking if backend isn't up)
-const API = 'http://localhost:5000/api';
+import { API } from '../config/api';
 
 const TABS = [
   { id: 'personal', label: 'Personal Info' },
@@ -129,31 +129,38 @@ const ResumeBuilder = () => {
   };
 
   const handleAnalyzeAts = async () => {
+    // Gate: only Premium and Pro users
+    if (userInfo?.plan === 'Basic') {
+      if (window.confirm('ATS Checker is a Premium & Pro feature. Would you like to view our plans?')) navigate('/pricing');
+      return;
+    }
     setIsAnalyzing(true);
     try {
       const res = await fetch(`${API}/ai/analyze-ats`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ resumeData: resume, jobDescription: resume.jobDescription })
       });
       if (res.ok) {
         dispatch(setAtsData(await res.json()));
         setShowAtsModal(true);
+      } else {
+        const err = await res.json();
+        alert(err.message || 'ATS analysis failed. Please try again.');
       }
     } catch {
-      // Mock for development
-      dispatch(setAtsData({
-        score: 72,
-        missingKeywords: ['Agile', 'React', 'Node.js'],
-        formattingIssues: ['Avoid using complex tables', 'Use standard section headings'],
-        suggestions: ['Add more quantifiable metrics to your experience', 'Include a summary statement'],
-        sectionScores: { summary: 60, experience: 80, education: 100, skills: 50 },
-        strengthLevel: 'Fair'
-      }));
-      setShowAtsModal(true);
+      alert('Cannot reach AI server. Please check your connection.');
     } finally {
       setIsAnalyzing(false);
     }
+  };
+
+  // Called when user clicks "Apply All Improvements & Save" in the ATS modal
+  const handleAtsImprove = async () => {
+    // The ATSReport component already dispatched updateSkills.
+    // Now auto-save the updated resume.
+    await handleSave();
   };
 
   const handleAIWrite = async (field, currentText) => {
@@ -263,13 +270,7 @@ const ResumeBuilder = () => {
               <span className="hidden lg:inline">Grammar</span>
             </button>
             <button 
-              onClick={() => {
-                if (userInfo?.plan === 'Basic') {
-                  if(confirm("ATS Checker is a Premium feature. Would you like to view our plans?")) navigate('/pricing');
-                  return;
-                }
-                handleAnalyzeAts();
-              }}
+              onClick={handleAnalyzeAts}
               disabled={isAnalyzing}
               className="p-2 sm:px-3 sm:py-2 rounded-xl bg-primary-500/10 hover:bg-primary-500/20 text-primary-400 font-medium flex items-center gap-2 transition-colors disabled:opacity-50 relative group"
             >
@@ -437,6 +438,7 @@ const ResumeBuilder = () => {
           sectionScores={atsSectionScores}
           strengthLevel={atsStrengthLevel}
           onClose={() => setShowAtsModal(false)}
+          onImprove={handleAtsImprove}
         />
       )}
 

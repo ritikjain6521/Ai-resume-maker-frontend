@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { FileText, Wand2, ArrowRight, Layout, Download, Settings, Check, Zap, Star, Users, LayoutTemplate, Settings2, Link as LinkIcon, CheckCircle2, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { API } from '../config/api';
 
 import StatisticsSection from '../components/landing/StatisticsSection';
 import FeaturesSection from '../components/landing/FeaturesSection';
@@ -18,7 +19,7 @@ const LandingPage = () => {
   const handlePayment = async (planName, amount) => {
     setLoadingPlan(planName);
     try {
-      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/payments/create-order`, {
+      const res = await fetch(`${API}/payments/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan: planName, amount })
@@ -35,7 +36,7 @@ const LandingPage = () => {
         description: `Upgrade to ${planName} Plan`,
         order_id: orderData.id,
         handler: async function (response) {
-          const verifyRes = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/payments/verify`, {
+          const verifyRes = await fetch(`${API}/payments/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

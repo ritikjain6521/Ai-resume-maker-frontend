@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../redux/slices/authSlice';
 import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { API } from '../config/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Login = () => {
     setError(null);
 
     try {
-      const res = await fetch(`\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api/auth/login`, {
+      const res = await fetch(`${API}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

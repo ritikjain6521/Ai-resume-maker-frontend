@@ -10,8 +10,7 @@ import StatsCard from '../components/dashboard/StatsCard';
 import ResumeCard from '../components/dashboard/ResumeCard';
 import AISuggestionsPanel from '../components/dashboard/AISuggestionsPanel';
 import SubscriptionBanner from '../components/dashboard/SubscriptionBanner';
-
-const API = `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api`;
+import { API } from '../config/api';
 
 const PLAN_LIMITS = { Basic: 2, Premium: Infinity, Pro: Infinity };
 

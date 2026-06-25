@@ -13,8 +13,8 @@ import { logout } from '../redux/slices/authSlice';
 import StatsOverview from '../components/admin/StatsOverview';
 import UsersTable from '../components/admin/UsersTable';
 import FeatureToggle from '../components/admin/FeatureToggle';
-
-const API = `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}/api`;
+import { API } from '../config/api';
+import API_BASE_URL from '../config/api';
 
 const TABS = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
@@ -310,7 +310,7 @@ const AdminDashboard = () => {
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { label: 'Backend Server', status: 'online', detail: `\${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://ai-resume-maker-backend-ve6d.onrender.com' : 'http://localhost:5000')}`, icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-500/10' },
+                { label: 'Backend Server', status: 'online', detail: API_BASE_URL, icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-500/10' },
                 { label: 'MongoDB Database', status: 'connected', detail: 'Atlas cluster', icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-500/10' },
                 { label: 'OpenAI API', status: 'check .env', detail: 'OPENAI_API_KEY required', icon: AlertTriangle, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
                 { label: 'Razorpay Payments', status: 'check .env', detail: 'RAZORPAY keys required', icon: AlertTriangle, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },

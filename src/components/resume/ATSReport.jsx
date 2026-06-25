@@ -58,6 +58,7 @@ const ATSReport = ({
   sectionScores = {},
   strengthLevel = 'Fair',
   onClose,
+  onImprove,
 }) => {
   const dispatch = useDispatch();
   const currentSkills = useSelector(state => state.resume.currentResume.skills) || [];
@@ -69,6 +70,18 @@ const ATSReport = ({
     const newSkills = [...new Set([...currentSkills, ...missingKeywords])];
     dispatch(updateSkills(newSkills));
     alert('Keywords successfully added to your Skills section!');
+  };
+
+  const handleImproveResume = () => {
+    // 1. Auto-add all missing keywords to skills
+    if (missingKeywords.length > 0) {
+      const newSkills = [...new Set([...currentSkills, ...missingKeywords])];
+      dispatch(updateSkills(newSkills));
+    }
+
+    // 2. Call parent's onImprove which will auto-save
+    if (onImprove) onImprove({ missingKeywords, suggestions });
+    onClose();
   };
 
   return (
@@ -192,9 +205,15 @@ const ATSReport = ({
           )}
         </div>
 
-        <div className="p-5 border-t border-white/5 shrink-0">
-          <button onClick={onClose} className="w-full bg-primary-500 hover:bg-primary-600 text-white py-3 rounded-xl font-semibold transition-colors">
-            Got it — I'll improve my resume!
+        <div className="p-5 border-t border-white/5 shrink-0 flex flex-col gap-2">
+          <button
+            onClick={handleImproveResume}
+            className="w-full bg-gradient-to-r from-primary-500 to-violet-500 hover:from-primary-600 hover:to-violet-600 text-white py-3 rounded-xl font-semibold transition-all shadow-lg shadow-primary-500/25 flex items-center justify-center gap-2"
+          >
+            <TrendingUp size={18} /> Got it — Apply All Improvements & Save!
+          </button>
+          <button onClick={onClose} className="w-full text-slate-400 hover:text-white py-2 text-sm transition-colors">
+            Dismiss without saving
           </button>
         </div>
       </div>
