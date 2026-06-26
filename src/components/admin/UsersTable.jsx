@@ -29,7 +29,7 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
             placeholder="Search by name or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 bg-surface border border-white/5 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary-500 transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-primary-500 transition-colors"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -37,7 +37,7 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
           <select
             value={filterPlan}
             onChange={(e) => setFilterPlan(e.target.value)}
-            className="bg-surface border border-white/5 rounded-xl text-sm text-slate-300 px-3 py-2.5 focus:outline-none focus:border-primary-500"
+            className="bg-white dark:bg-surface border border-slate-200 dark:border-white/5 rounded-xl text-sm text-slate-600 dark:text-slate-300 px-3 py-2.5 focus:outline-none focus:border-primary-500"
           >
             <option value="">All Plans</option>
             <option value="Basic">Basic</option>
@@ -48,17 +48,17 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
       </div>
 
       {/* Table */}
-      <div className="glass rounded-2xl border border-white/5 overflow-hidden">
+      <div className="bg-white dark:glass rounded-2xl border border-slate-200 dark:border-white/5 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-surface/60 border-b border-white/5">
+            <thead className="bg-slate-50 dark:bg-surface/60 border-b border-slate-200 dark:border-white/5">
               <tr>
                 {['User', 'Email', 'Plan', 'Role', 'Status', 'Joined', 'Actions'].map((h) => (
-                  <th key={h} className="px-4 py-3.5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">{h}</th>
+                  <th key={h} className="px-4 py-3.5 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-slate-100 dark:divide-white/5">
               {users
                 .filter((u) => {
                   const q = search.toLowerCase();
@@ -67,16 +67,16 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
                   return matchSearch && matchPlan;
                 })
                 .map((user) => (
-                  <tr key={user._id} className="hover:bg-surface/40 transition-colors">
+                  <tr key={user._id} className="hover:bg-slate-50 dark:hover:bg-surface/40 transition-colors">
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
                           {user.name?.[0]?.toUpperCase() || 'U'}
                         </div>
-                        <span className="text-sm font-medium text-white">{user.name}</span>
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">{user.name}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3.5 text-sm text-slate-400">{user.email}</td>
+                    <td className="px-4 py-3.5 text-sm text-slate-500 dark:text-slate-400">{user.email}</td>
                     <td className="px-4 py-3.5">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${PLAN_COLORS[user.plan] || PLAN_COLORS.Basic}`}>
                         {user.plan}
@@ -131,7 +131,7 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between px-4 py-3 border-t border-white/5 bg-surface/30">
+        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-surface/30">
           <p className="text-xs text-slate-500">Showing {users.length} of {total} users</p>
           <div className="flex items-center gap-2">
             <button
@@ -141,7 +141,7 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
             >
               <ChevronLeft size={16} />
             </button>
-            <span className="text-xs text-slate-400 px-2">{page} / {pages}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 px-2">{page} / {pages}</span>
             <button
               onClick={() => onPageChange(page + 1)}
               disabled={page >= pages}
@@ -155,16 +155,16 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
 
       {/* Edit Modal */}
       {editingUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="glass border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
-            <h3 className="text-lg font-bold text-white mb-4">Edit User: {editingUser.name}</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm">
+          <div className="bg-white dark:glass border border-slate-200 dark:border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Edit User: {editingUser.name}</h3>
             <div className="space-y-4">
               <div>
-                <label className="text-xs text-slate-400 block mb-1">Plan</label>
+                <label className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Plan</label>
                 <select
                   value={editForm.plan}
                   onChange={(e) => setEditForm({ ...editForm, plan: e.target.value })}
-                  className="w-full bg-surface border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-primary-500"
+                  className="w-full bg-slate-50 dark:bg-surface border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2.5 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-primary-500"
                 >
                   <option value="Basic">Basic</option>
                   <option value="Premium">Premium</option>
@@ -172,11 +172,11 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
                 </select>
               </div>
               <div>
-                <label className="text-xs text-slate-400 block mb-1">Role</label>
+                <label className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Role</label>
                 <select
                   value={editForm.role}
                   onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
-                  className="w-full bg-surface border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-primary-500"
+                  className="w-full bg-slate-50 dark:bg-surface border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2.5 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-primary-500"
                 >
                   <option value="User">User</option>
                   <option value="Admin">Admin</option>
@@ -184,11 +184,11 @@ const UsersTable = ({ users, total, page, pages, onUpdate, onDelete, onPageChang
               </div>
               <div className="flex items-center gap-3">
                 <input type="checkbox" id="isActive" checked={editForm.isActive} onChange={(e) => setEditForm({ ...editForm, isActive: e.target.checked })} className="w-4 h-4 rounded accent-primary-500" />
-                <label htmlFor="isActive" className="text-sm text-slate-300">Account Active</label>
+                <label htmlFor="isActive" className="text-sm text-slate-700 dark:text-slate-300">Account Active</label>
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <button onClick={() => setEditingUser(null)} className="flex-1 py-2.5 glass rounded-xl text-slate-300 text-sm font-medium hover:bg-surface/80 transition-colors">Cancel</button>
+              <button onClick={() => setEditingUser(null)} className="flex-1 py-2.5 bg-slate-100 dark:glass border border-slate-200 dark:border-transparent rounded-xl text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-200 dark:hover:bg-surface/80 transition-colors">Cancel</button>
               <button onClick={handleEditSave} className="flex-1 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-xl text-sm font-bold transition-colors">Save Changes</button>
             </div>
           </div>

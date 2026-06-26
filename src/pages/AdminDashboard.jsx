@@ -133,15 +133,15 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row pt-20">
       {/* Mobile Tab Bar (shown at top on mobile) */}
-      <div className="md:hidden overflow-x-auto bg-surface border-b border-white/5 flex gap-1 p-2 shrink-0 hide-scrollbar">
+      <div className="md:hidden overflow-x-auto bg-surface border-b border-slate-200 dark:border-white/5 flex gap-1 p-2 shrink-0 hide-scrollbar">
         {TABS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => setActiveTab(id)}
             className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
               activeTab === id
-                ? 'bg-primary-500/15 text-primary-400 border border-primary-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-primary-50 dark:bg-primary-500/15 text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-500/20'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
             }`}
           >
             <Icon size={14} className="shrink-0" /> {label}
@@ -150,13 +150,13 @@ const AdminDashboard = () => {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className={`hidden md:flex ${sidebarOpen ? 'w-60' : 'w-16'} shrink-0 bg-surface border-r border-white/5 transition-all duration-300 flex-col`}>
-        <div className="p-4 border-b border-white/5">
+      <aside className={`hidden md:flex ${sidebarOpen ? 'w-60' : 'w-16'} shrink-0 bg-surface border-r border-slate-200 dark:border-white/5 transition-all duration-300 flex-col`}>
+        <div className="p-4 border-b border-slate-200 dark:border-white/5">
           <div className={`flex items-center gap-2 overflow-hidden ${sidebarOpen ? '' : 'justify-center'}`}>
             <div className="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center shrink-0">
               <Shield size={18} className="text-red-400" />
             </div>
-            {sidebarOpen && <span className="font-bold text-white text-sm">Admin Panel</span>}
+            {sidebarOpen && <span className="font-bold text-slate-900 dark:text-white text-sm">Admin Panel</span>}
           </div>
         </div>
 
@@ -167,8 +167,8 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab(id)}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 activeTab === id
-                  ? 'bg-primary-500/15 text-primary-400 border border-primary-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-primary-50 dark:bg-primary-500/15 text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-500/20'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
               } ${sidebarOpen ? '' : 'justify-center'}`}
               title={!sidebarOpen ? label : ''}
             >
@@ -178,17 +178,17 @@ const AdminDashboard = () => {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-white/5 space-y-2">
+        <div className="p-3 border-t border-slate-200 dark:border-white/5 space-y-2">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? '' : 'justify-center'}`}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors ${sidebarOpen ? '' : 'justify-center'}`}
           >
             <LogOut size={18} className="shrink-0 rotate-180" />
             {sidebarOpen && <span>Collapse</span>}
           </button>
           
           {sidebarOpen && (
-            <div className="text-center pt-2 pb-1 text-[10px] text-slate-500 uppercase tracking-widest font-semibold border-t border-white/5">
+            <div className="text-center pt-2 pb-1 text-[10px] text-slate-500 uppercase tracking-widest font-semibold border-t border-slate-200 dark:border-white/5">
               Admin by <span className="text-primary-400">Ritik Jain</span>
             </div>
           )}
@@ -205,13 +205,13 @@ const AdminDashboard = () => {
                 <Shield size={12} /> Admin Access
               </span>
             </div>
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
               {TABS.find(t => t.id === activeTab)?.label}
             </h1>
           </div>
           <button
             onClick={() => { fetchStats(); fetchUsers(); fetchSubscriptions(); }}
-            className="flex items-center gap-2 px-4 py-2 glass rounded-xl text-slate-300 hover:text-white text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-white dark:glass rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/5 text-sm font-medium transition-colors"
           >
             <RefreshCw size={16} className={isLoading ? 'animate-spin' : ''} /> Refresh
           </button>
@@ -226,7 +226,7 @@ const AdminDashboard = () => {
                 <>
                   <p className="font-semibold text-red-300 text-sm">Session Expired</p>
                   <p className="text-xs text-red-400/80 mt-0.5">
-                    Your login session has expired. Please <button onClick={() => dispatch(logout())} className="underline font-bold hover:text-white transition-colors">click here to sign out</button>, then log back in.
+                    Your login session has expired. Please <button onClick={() => dispatch(logout())} className="underline font-bold hover:text-slate-900 dark:hover:text-white transition-colors">click here to sign out</button>, then log back in.
                   </p>
                 </>
               ) : (
@@ -255,26 +255,26 @@ const AdminDashboard = () => {
         )}
 
         {activeTab === 'resumes' && (
-          <div className="glass rounded-2xl border border-white/5 overflow-hidden">
-            <div className="p-5 border-b border-white/5">
-              <h3 className="font-bold text-white">All Resumes ({totalResumes})</h3>
+          <div className="bg-white dark:glass rounded-2xl border border-slate-200 dark:border-white/5 overflow-hidden">
+            <div className="p-5 border-b border-slate-200 dark:border-white/5">
+              <h3 className="font-bold text-slate-900 dark:text-white">All Resumes ({totalResumes})</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-surface/60 border-b border-white/5">
+                <thead className="bg-slate-50 dark:bg-surface/60 border-b border-slate-200 dark:border-white/5">
                   <tr>
                     {['Title', 'User', 'Plan', 'ATS Score', 'Downloads', 'Last Updated'].map(h => (
-                      <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">{h}</th>
+                      <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">{h}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5">
+                <tbody className="divide-y divide-slate-100 dark:divide-white/5">
                   {resumes.length === 0 ? (
                     <tr><td colSpan={6} className="px-4 py-8 text-center text-slate-500 text-sm">No resumes have been created by users yet.</td></tr>
                   ) : resumes.map((r) => (
-                    <tr key={r._id} className="hover:bg-surface/30 transition-colors">
-                      <td className="px-4 py-3 text-sm text-white font-medium">{r.title}</td>
-                      <td className="px-4 py-3 text-sm text-slate-400">{r.userId?.name || '—'}</td>
+                    <tr key={r._id} className="hover:bg-slate-50 dark:hover:bg-surface/30 transition-colors">
+                      <td className="px-4 py-3 text-sm text-slate-900 dark:text-white font-medium">{r.title}</td>
+                      <td className="px-4 py-3 text-sm text-slate-500 dark:text-slate-400">{r.userId?.name || '—'}</td>
                       <td className="px-4 py-3">
                         <span className="px-2 py-0.5 rounded-full text-xs bg-primary-500/10 text-primary-400">{r.userId?.plan || 'Basic'}</span>
                       </td>
@@ -297,29 +297,29 @@ const AdminDashboard = () => {
                 { label: 'Paying Users', value: ((subscriptionStats?.plans?.find(p => p._id === 'Premium')?.count || 0) + (subscriptionStats?.plans?.find(p => p._id === 'Pro')?.count || 0)).toString(), color: 'text-primary-400' },
                 { label: 'Conversion Rate', value: `${stats ? Math.round(((stats.planDistribution?.Premium + stats.planDistribution?.Pro) / (stats.totalUsers || 1)) * 100) : 0}%`, color: 'text-purple-400' },
               ].map(({ label, value, color }) => (
-                <div key={label} className="glass rounded-2xl border border-white/5 p-5">
-                  <p className="text-slate-400 text-sm">{label}</p>
+                <div key={label} className="bg-white dark:glass rounded-2xl border border-slate-200 dark:border-white/5 p-5">
+                  <p className="text-slate-500 dark:text-slate-400 text-sm">{label}</p>
                   <p className={`text-3xl font-bold mt-1 ${color}`}>{value}</p>
                 </div>
               ))}
             </div>
 
-            <div className="glass rounded-2xl border border-white/5 p-5">
-              <h3 className="font-bold text-white mb-4">Plan Revenue Breakdown</h3>
+            <div className="bg-white dark:glass rounded-2xl border border-slate-200 dark:border-white/5 p-5">
+              <h3 className="font-bold text-slate-900 dark:text-white mb-4">Plan Revenue Breakdown</h3>
               <div className="space-y-3">
                 {[
                   { plan: 'Basic', price: 0, count: stats?.planDistribution?.Basic || 0 },
                   { plan: 'Premium', price: 299, count: stats?.planDistribution?.Premium || 0 },
                   { plan: 'Pro', price: 599, count: stats?.planDistribution?.Pro || 0 },
                 ].map(({ plan, price, count }) => (
-                  <div key={plan} className="flex items-center justify-between p-3 bg-surface/50 rounded-xl">
+                  <div key={plan} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-surface/50 rounded-xl">
                     <div className="flex items-center gap-3">
                       <div className={`w-2.5 h-2.5 rounded-full ${plan === 'Pro' ? 'bg-purple-500' : plan === 'Premium' ? 'bg-primary-500' : 'bg-slate-500'}`}></div>
-                      <span className="text-sm text-white font-medium">{plan} Plan</span>
+                      <span className="text-sm text-slate-900 dark:text-white font-medium">{plan} Plan</span>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-white">₹{(price * count).toLocaleString()}/mo</p>
-                      <p className="text-xs text-slate-400">{count} users × ₹{price}</p>
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">₹{(price * count).toLocaleString()}/mo</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{count} users × ₹{price}</p>
                     </div>
                   </div>
                 ))}

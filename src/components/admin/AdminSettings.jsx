@@ -109,18 +109,18 @@ const AdminSettings = () => {
 
   return (
     <div className="space-y-6">
-      <div className="glass rounded-2xl border border-white/5 p-6">
+      <div className="bg-white dark:glass rounded-2xl border border-slate-200 dark:border-white/5 p-6">
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Key className="text-primary-400" /> Gemini API Keys
             </h2>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Manage API keys for AI generation. If a key hits quota limits, the system will automatically rotate to the next active key.
             </p>
           </div>
           <div className="text-right">
-            <div className="text-sm font-medium text-white bg-surface/50 px-3 py-1.5 rounded-lg border border-white/10">
+            <div className="text-sm font-medium text-slate-900 dark:text-white bg-slate-50 dark:bg-surface/50 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10">
               <span className={keys.length - exhaustedCount > 0 ? 'text-emerald-400' : 'text-red-400'}>
                 {keys.length - exhaustedCount}
               </span> active / {keys.length} total
@@ -140,7 +140,7 @@ const AdminSettings = () => {
             value={newKey}
             onChange={(e) => setNewKey(e.target.value)}
             placeholder="AIzaSy..."
-            className="flex-1 bg-background border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:border-primary-500 outline-none"
+            className="flex-1 bg-white dark:bg-background border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white text-sm focus:border-primary-500 outline-none"
           />
           <button
             type="submit"
@@ -159,10 +159,10 @@ const AdminSettings = () => {
             </div>
           ) : (
             keys.map((k) => (
-              <div key={k._id} className={`flex items-center justify-between p-4 rounded-xl border ${k.isExhausted ? 'bg-red-500/5 border-red-500/10' : 'bg-surface/50 border-white/5'}`}>
+              <div key={k._id} className={`flex items-center justify-between p-4 rounded-xl border ${k.isExhausted ? 'bg-red-500/5 border-red-500/10' : 'bg-slate-50 dark:bg-surface/50 border-slate-200 dark:border-white/5'}`}>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm text-slate-300">
+                    <span className="font-mono text-sm text-slate-700 dark:text-slate-300">
                       {k.key.substring(0, 8)}...{k.key.substring(k.key.length - 4)}
                     </span>
                     {k.isExhausted ? (
@@ -178,7 +178,7 @@ const AdminSettings = () => {
                     <button
                       onClick={() => handleResetStatus(k._id)}
                       disabled={isSaving}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-slate-300 transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 text-xs text-slate-700 dark:text-slate-300 transition-colors"
                       title="Reset exhausted status"
                     >
                       Reset Status

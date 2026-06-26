@@ -25,34 +25,34 @@ const FeatureToggle = () => {
   };
 
   return (
-    <div className="glass rounded-2xl border border-white/5 overflow-hidden">
-      <div className="p-5 border-b border-white/5">
+    <div className="bg-white dark:glass rounded-2xl border border-slate-200 dark:border-white/5 overflow-hidden">
+      <div className="p-5 border-b border-slate-200 dark:border-white/5">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-primary-500/10">
             <Shield size={20} className="text-primary-400" />
           </div>
           <div>
-            <h3 className="font-bold text-white">Feature Access Control</h3>
-            <p className="text-xs text-slate-400">Control which features are available per subscription plan</p>
+            <h3 className="font-bold text-slate-900 dark:text-white">Feature Access Control</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Control which features are available per subscription plan</p>
           </div>
         </div>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-surface/50 border-b border-white/5">
+          <thead className="bg-slate-50 dark:bg-surface/50 border-b border-slate-200 dark:border-white/5">
             <tr>
-              <th className="px-5 py-3.5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">Feature</th>
+              <th className="px-5 py-3.5 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Feature</th>
               {PLANS.map((plan) => (
-                <th key={plan} className="px-5 py-3.5 text-center text-xs font-semibold text-slate-400 uppercase tracking-wide">{plan}</th>
+                <th key={plan} className="px-5 py-3.5 text-center text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{plan}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-slate-100 dark:divide-white/5">
             {FEATURES.map((feature) => (
-              <tr key={feature.key} className="hover:bg-surface/30 transition-colors">
+              <tr key={feature.key} className="hover:bg-slate-50 dark:hover:bg-surface/30 transition-colors">
                 <td className="px-5 py-4">
-                  <p className="text-sm font-medium text-white">{feature.label}</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white">{feature.label}</p>
                   <p className="text-xs text-slate-500 mt-0.5">{feature.desc}</p>
                 </td>
                 {PLANS.map((plan) => {
@@ -61,7 +61,7 @@ const FeatureToggle = () => {
                     <td key={plan} className="px-5 py-4 text-center">
                       <button
                         onClick={() => handleToggle(feature.key, plan, !enabled)}
-                        className={`relative inline-flex items-center justify-center w-12 h-6 rounded-full transition-all duration-300 ${enabled ? 'bg-primary-500' : 'bg-white/10'}`}
+                        className={`relative inline-flex items-center justify-center w-12 h-6 rounded-full transition-all duration-300 ${enabled ? 'bg-primary-500' : 'bg-slate-200 dark:bg-white/10'}`}
                         title={`${enabled ? 'Disable' : 'Enable'} ${feature.label} for ${plan}`}
                       >
                         <span className={`absolute w-5 h-5 rounded-full bg-white shadow-md transition-all duration-300 flex items-center justify-center ${enabled ? 'translate-x-3' : '-translate-x-3'}`}>
@@ -80,7 +80,7 @@ const FeatureToggle = () => {
         </table>
       </div>
 
-      <div className="px-5 py-3 bg-surface/30 border-t border-white/5">
+      <div className="px-5 py-3 bg-slate-50 dark:bg-surface/30 border-t border-slate-200 dark:border-white/5">
         <p className="text-xs text-slate-500">⚠️ Changes are applied immediately and persist in browser storage. Connect to backend settings API for permanent storage.</p>
       </div>
     </div>
