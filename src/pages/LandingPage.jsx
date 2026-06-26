@@ -69,14 +69,14 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-background transition-colors duration-300 overflow-x-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[800px] h-[800px] bg-primary-100 dark:bg-primary-900/20 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-green-100 dark:bg-green-900/20 rounded-full blur-[100px] opacity-50 pointer-events-none"></div>
+      <div className="fixed top-0 right-0 -translate-y-12 translate-x-1/3 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] bg-primary-100 dark:bg-primary-900/20 rounded-full blur-[120px] opacity-60 pointer-events-none z-0"></div>
+      <div className="fixed bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[300px] sm:w-[450px] lg:w-[600px] h-[300px] sm:h-[450px] lg:h-[600px] bg-green-100 dark:bg-green-900/20 rounded-full blur-[100px] opacity-50 pointer-events-none z-0"></div>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 sm:pb-20 relative">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-8 items-center">
           
           {/* Left Content */}
           <motion.div 
@@ -90,15 +90,15 @@ const LandingPage = () => {
               <span>#1 AI Resume Builder</span>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-[1.1] text-slate-900 dark:text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-[1.1] text-slate-900 dark:text-white">
               Land Your <span className="text-primary-500">Dream Job</span> with AI-Powered Resumes
             </h1>
             
-            <p className="text-lg lg:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto lg:mx-0">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0">
               Create professional resumes in minutes using advanced AI technology. Stand out from the crowd with personalized, ATS-optimized resumes.
             </p>
             
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-10 text-slate-600 dark:text-slate-300 text-sm font-medium">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-8 sm:mb-10 text-slate-600 dark:text-slate-300 text-sm font-medium">
               <div className="flex items-center gap-2"><Users size={18} className="text-primary-500"/> 2M+ users</div>
               <div className="flex items-center gap-2"><Star size={18} className="text-yellow-500 fill-current"/> 4.9/5 rating</div>
               <div className="flex items-center gap-2"><LayoutTemplate size={18} className="text-primary-500"/> 30+ templates</div>
@@ -119,10 +119,10 @@ const LandingPage = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative lg:h-[600px] flex items-center justify-center lg:justify-end mt-4 lg:mt-0"
+            className="relative lg:h-[600px] flex items-center justify-center lg:justify-end mt-4 lg:mt-0 overflow-visible"
           >
             {/* The Main Resume Document */}
-            <div className="w-[85%] max-w-[400px] sm:w-[400px] bg-white dark:bg-slate-100 rounded-lg shadow-2xl overflow-hidden relative z-10 border border-slate-200">
+            <div className="w-[75%] max-w-[350px] sm:w-[85%] sm:max-w-[400px] bg-white dark:bg-slate-100 rounded-lg shadow-2xl overflow-hidden relative z-10 border border-slate-200">
               <div className="h-24 bg-slate-800 p-6 flex items-center justify-between">
                 <div>
                   <div className="w-32 h-4 bg-white/20 rounded mb-2"></div>
@@ -163,24 +163,24 @@ const LandingPage = () => {
             </div>
 
             {/* Floating Tags */}
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="absolute top-10 right-0 z-20 bg-green-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold shadow-lg flex items-center gap-2 text-sm">
-              91% Score <div className="w-2 h-2 bg-white rounded-full"></div>
+            <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} className="absolute top-4 sm:top-10 right-2 sm:right-0 z-20 bg-green-500 text-white px-2.5 py-1 sm:px-4 sm:py-2 rounded-full font-bold shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
+              91% Score <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full"></div>
             </motion.div>
             
-            <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 1 }} className="absolute top-4 left-0 z-20 bg-white dark:bg-surface text-slate-700 dark:text-slate-200 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-medium shadow-lg flex items-center gap-2 border border-slate-100 dark:border-white/10 text-sm">
-              <Download size={16} className="text-slate-400" /> Export to PDF
+            <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 1 }} className="absolute top-2 sm:top-4 left-2 sm:left-0 z-20 bg-white dark:bg-surface text-slate-700 dark:text-slate-200 px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg font-medium shadow-lg flex items-center gap-1.5 sm:gap-2 border border-slate-100 dark:border-white/10 text-xs sm:text-sm">
+              <Download size={14} className="text-slate-400 sm:hidden" /><Download size={16} className="text-slate-400 hidden sm:block" /> Export to PDF
             </motion.div>
             
-            <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }} className="absolute bottom-20 -right-4 sm:-right-8 z-20 bg-primary-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-medium shadow-lg flex items-center gap-2 text-sm">
-              <LinkIcon size={16} /> Share Link
+            <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }} className="absolute bottom-16 sm:bottom-20 right-0 sm:right-2 z-20 bg-primary-500 text-white px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg font-medium shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
+              <LinkIcon size={14} className="sm:hidden" /><LinkIcon size={16} className="hidden sm:block" /> Share Link
             </motion.div>
 
-            <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 2 }} className="absolute bottom-10 left-4 sm:left-10 z-20 bg-white dark:bg-surface text-slate-700 dark:text-slate-200 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-medium shadow-lg flex items-center gap-2 border border-slate-100 dark:border-white/10 text-sm">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div> ATS Perfect
+            <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 2 }} className="absolute bottom-6 sm:bottom-10 left-2 sm:left-10 z-20 bg-white dark:bg-surface text-slate-700 dark:text-slate-200 px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg font-medium shadow-lg flex items-center gap-1.5 sm:gap-2 border border-slate-100 dark:border-white/10 text-xs sm:text-sm">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full"></div> ATS Perfect
             </motion.div>
 
             {/* Floating Options Panel */}
-            <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }} className="absolute top-1/3 -right-16 z-0 bg-white dark:bg-surface p-4 rounded-xl shadow-2xl border border-slate-100 dark:border-white/10 w-48 hidden md:block">
+            <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }} className="absolute top-1/3 -right-8 lg:-right-16 z-0 bg-white dark:bg-surface p-4 rounded-xl shadow-2xl border border-slate-100 dark:border-white/10 w-48 hidden lg:block">
               <div className="flex items-center gap-2 mb-4 bg-primary-500 text-white px-3 py-1.5 rounded-lg -mt-8 mx-auto w-max shadow-lg text-sm font-medium">
                 <Settings2 size={14} /> Customize
               </div>

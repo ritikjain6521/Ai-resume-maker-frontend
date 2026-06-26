@@ -224,7 +224,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white dark:glass border-t border-slate-100 dark:border-white/10 shadow-xl">
+        <div className="md:hidden bg-white dark:glass border-t border-slate-100 dark:border-white/10 shadow-xl max-h-[calc(100vh-80px)] overflow-y-auto">
           <div className="px-4 pt-4 pb-6 space-y-1">
             {!userInfo ? (
               <>

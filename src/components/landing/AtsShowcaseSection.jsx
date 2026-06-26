@@ -68,7 +68,7 @@ const AtsShowcaseSection = () => {
             
             {/* Window Body */}
             <div className="p-4 sm:p-6">
-              <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="bg-slate-50 dark:bg-surface p-6 rounded-xl border border-slate-200 dark:border-white/5 text-center relative overflow-hidden">
                   <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-4">Resume Score</h4>
                   <div className="relative w-28 h-28 mx-auto flex items-center justify-center">
