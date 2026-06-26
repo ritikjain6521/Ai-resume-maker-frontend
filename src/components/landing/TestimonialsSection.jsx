@@ -36,7 +36,7 @@ const TestimonialsSection = () => {
             Success Stories from Our Users
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400">
-            Join thousands of professionals who landed their dream jobs using ResumeAI.
+            Join thousands of professionals who landed their dream jobs using ResumeNova.
           </p>
         </div>
 

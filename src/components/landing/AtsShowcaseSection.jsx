@@ -16,7 +16,7 @@ const AtsShowcaseSection = () => {
           
           {/* Left Text */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
               Beat the bots with our <span className="text-indigo-600 dark:text-indigo-400">ATS Score Showcase</span>
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
@@ -55,7 +55,7 @@ const AtsShowcaseSection = () => {
           </div>
 
           {/* Right Visual: Dashboard Mockup */}
-          <div className="bg-white dark:bg-[#151c2f] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+          <div className="bg-white dark:bg-[#151c2f] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden hover:rotate-0 transition-transform duration-500">
             {/* Window Header */}
             <div className="bg-slate-50 dark:bg-surface border-b border-slate-200 dark:border-white/5 p-4 flex items-center gap-4">
               <div className="flex gap-2">
@@ -67,8 +67,8 @@ const AtsShowcaseSection = () => {
             </div>
             
             {/* Window Body */}
-            <div className="p-6">
-              <div className="grid grid-cols-2 gap-6 mb-8">
+            <div className="p-4 sm:p-6">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="bg-slate-50 dark:bg-surface p-6 rounded-xl border border-slate-200 dark:border-white/5 text-center relative overflow-hidden">
                   <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-4">Resume Score</h4>
                   <div className="relative w-28 h-28 mx-auto flex items-center justify-center">

@@ -284,8 +284,8 @@ const ResumeManager = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-white dark:bg-surface rounded-2xl border border-slate-100 dark:border-white/5 overflow-hidden shadow-sm">
-            <table className="w-full">
+          <div className="bg-white dark:bg-surface rounded-2xl border border-slate-100 dark:border-white/5 overflow-hidden shadow-sm overflow-x-auto">
+            <table className="w-full min-w-[700px]">
               <thead className="bg-slate-50 dark:bg-surface/80 border-b border-slate-100 dark:border-white/5">
                 <tr>
                   {['Resume', 'Template', 'ATS Score', 'Job Match', 'Downloads', 'Updated', 'Actions'].map((h) => (

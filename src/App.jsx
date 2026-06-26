@@ -12,6 +12,7 @@ import Features from './pages/Features';
 import Templates from './pages/Templates';
 import Pricing from './pages/Pricing';
 import AIAssistant from './components/AIAssistant';
+import { Toaster } from 'react-hot-toast';
 
 // ------ Route Guards ------
 const ProtectedRoute = ({ children }) => {
@@ -73,6 +74,20 @@ function AppContent() {
         </Routes>
       </main>
       <AIAssistant />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: '#1e293b',
+            color: '#f1f5f9',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '12px',
+            fontSize: '14px',
+          },
+          success: { iconTheme: { primary: '#22c55e', secondary: '#f1f5f9' } },
+          error: { iconTheme: { primary: '#ef4444', secondary: '#f1f5f9' } },
+        }}
+      />
     </div>
   );
 }

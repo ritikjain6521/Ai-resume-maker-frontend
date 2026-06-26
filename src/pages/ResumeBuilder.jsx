@@ -8,7 +8,7 @@ import {
 import { 
   Wand2, Download, Eye, 
   BookOpen, Loader2, Save, Target, SpellCheck, Settings, 
-  ChevronLeft, ChevronRight, ArrowLeft, Lock
+  ChevronLeft, ChevronRight, ArrowLeft, Lock, FileSignature
 } from 'lucide-react';
 
 import ExperienceForm from '../components/forms/ExperienceForm';
@@ -21,6 +21,7 @@ import ATSReport from '../components/resume/ATSReport';
 import GrammarChecker from '../components/resume/GrammarChecker';
 import JobMatcher from '../components/resume/JobMatcher';
 import ResumePreview from '../components/resume/ResumePreview';
+import CoverLetterGenerator from '../components/resume/CoverLetterGenerator';
 
 // ... (We'll use a mocked API for saving to avoid breaking if backend isn't up)
 import { API } from '../config/api';
@@ -38,6 +39,7 @@ const RIGHT_PANELS = [
   { id: 'preview', label: 'Live Preview', icon: Eye },
   { id: 'templates', label: 'Templates', icon: Settings },
   { id: 'jobMatch', label: 'Job Match', icon: Target },
+  { id: 'coverLetter', label: 'Cover Letter', icon: FileSignature },
 ];
 
 const ResumeBuilder = () => {
@@ -193,7 +195,7 @@ const ResumeBuilder = () => {
     <div className="min-h-screen bg-background pt-20 flex flex-col md:flex-row overflow-hidden">
       
       {/* Mobile Top Bar */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-surface border-b border-white/5 shrink-0 z-20">
+      <div className="md:hidden flex items-center justify-between p-3 sm:p-4 bg-surface border-b border-white/5 shrink-0 z-20">
         <button onClick={() => navigate('/dashboard')} className="p-2 text-slate-400 hover:text-white">
           <ArrowLeft size={20} />
         </button>
@@ -209,6 +211,25 @@ const ResumeBuilder = () => {
           </button>
         </div>
       </div>
+
+      {/* Mobile Section Tabs */}
+      {!isMobilePreview && (
+        <div className="md:hidden flex overflow-x-auto gap-1 px-3 py-2 bg-surface border-b border-white/5 shrink-0 hide-scrollbar">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-primary-500 text-white'
+                  : 'text-slate-400 hover:text-white bg-white/5'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Left Navigation Sidebar (Desktop) */}
       <div className={`hidden md:flex flex-col border-r border-white/5 bg-surface transition-all duration-300 z-10 ${sidebarCollapsed ? 'w-16' : 'w-64'} shrink-0`}>
@@ -241,6 +262,14 @@ const ResumeBuilder = () => {
             ))}
           </nav>
         </div>
+
+        {/* Developer Attribution */}
+        {!sidebarCollapsed && (
+          <div className="p-4 border-t border-white/5 text-center">
+            <div className="text-[9px] uppercase tracking-widest text-slate-600 font-semibold mb-0.5">Built by</div>
+            <div className="text-[11px] font-bold text-slate-400 hover:text-primary-400 transition-colors cursor-default">Ritik Jain</div>
+          </div>
+        )}
       </div>
 
       {/* Middle Column - Editor Area */}
@@ -382,8 +411,8 @@ const ResumeBuilder = () => {
       {/* Right Column - Multi-Panel Area (Desktop) & Full Screen Mobile Preview */}
       <div className={`w-full md:w-[45%] lg:w-[45%] xl:w-[50%] h-[calc(100vh-5rem)] bg-surface border-l border-white/5 flex flex-col absolute md:static top-20 left-0 z-30 transition-transform duration-300 ${isMobilePreview ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}`}>
         
-        {/* Right Panel Tabs */}
-        <div className="flex p-2 gap-1 bg-surface border-b border-white/5 shrink-0 overflow-x-auto hide-scrollbar">
+        {/* Right Panel Tabs (Mobile & Tablet) */}
+        <div className="flex md:hidden p-2 gap-1 bg-surface border-b border-white/5 shrink-0 overflow-x-auto hide-scrollbar">
           {RIGHT_PANELS.map((panel) => (
             <button
               key={panel.id}
@@ -395,6 +424,9 @@ const ResumeBuilder = () => {
               }`}
             >
               <panel.icon size={16} /> {panel.label}
+              {panel.id === 'coverLetter' && userInfo?.plan === 'Basic' && (
+                <Lock size={12} className="ml-1 text-amber-500" />
+              )}
             </button>
           ))}
           <div className="flex-1" />
@@ -403,6 +435,29 @@ const ResumeBuilder = () => {
           >
             <Download size={16} /> Export
           </button>
+        </div>
+
+        {/* Header Tabs (Desktop) */}
+        <div className="hidden md:flex bg-surface border-b border-white/5">
+          <div className="flex px-4 overflow-x-auto no-scrollbar">
+            {RIGHT_PANELS.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => setRightPanel(p.id)}
+                className={`flex items-center gap-2 px-5 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                  rightPanel === p.id
+                    ? 'border-primary-500 text-white'
+                    : 'border-transparent text-slate-500 hover:text-white hover:border-slate-700'
+                }`}
+              >
+                <p.icon size={16} />
+                {p.label}
+                {p.id === 'coverLetter' && userInfo?.plan === 'Basic' && (
+                  <Lock size={12} className="ml-1 text-amber-500" />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Right Panel Content */}
@@ -423,6 +478,12 @@ const ResumeBuilder = () => {
           {rightPanel === 'jobMatch' && (
             <div className="w-full h-full p-6 bg-background animate-in fade-in slide-in-from-right-4 duration-300">
               <JobMatcher resumeData={resume} />
+            </div>
+          )}
+
+          {rightPanel === 'coverLetter' && (
+            <div className="w-full h-full p-6 bg-background animate-in fade-in slide-in-from-right-4 duration-300">
+              <CoverLetterGenerator resume={resume} isPremium={userInfo?.plan !== 'Basic'} />
             </div>
           )}
         </div>

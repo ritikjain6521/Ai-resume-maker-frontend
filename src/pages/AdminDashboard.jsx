@@ -13,6 +13,7 @@ import { logout } from '../redux/slices/authSlice';
 import StatsOverview from '../components/admin/StatsOverview';
 import UsersTable from '../components/admin/UsersTable';
 import FeatureToggle from '../components/admin/FeatureToggle';
+import AdminSettings from '../components/admin/AdminSettings';
 import { API } from '../config/api';
 import API_BASE_URL from '../config/api';
 
@@ -22,7 +23,7 @@ const TABS = [
   { id: 'resumes', label: 'Resumes', icon: FileText },
   { id: 'subscriptions', label: 'Subscriptions', icon: CreditCard },
   { id: 'features', label: 'Feature Controls', icon: Shield },
-  { id: 'system', label: 'System', icon: Server },
+  { id: 'settings', label: 'Settings & API Keys', icon: Server },
 ];
 
 const AdminDashboard = () => {
@@ -130,9 +131,26 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex pt-20">
-      {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-60' : 'w-16'} shrink-0 bg-surface border-r border-white/5 transition-all duration-300 flex flex-col`}>
+    <div className="min-h-screen bg-background flex flex-col md:flex-row pt-20">
+      {/* Mobile Tab Bar (shown at top on mobile) */}
+      <div className="md:hidden overflow-x-auto bg-surface border-b border-white/5 flex gap-1 p-2 shrink-0 hide-scrollbar">
+        {TABS.map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => setActiveTab(id)}
+            className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+              activeTab === id
+                ? 'bg-primary-500/15 text-primary-400 border border-primary-500/20'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Icon size={14} className="shrink-0" /> {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Desktop Sidebar */}
+      <aside className={`hidden md:flex ${sidebarOpen ? 'w-60' : 'w-16'} shrink-0 bg-surface border-r border-white/5 transition-all duration-300 flex-col`}>
         <div className="p-4 border-b border-white/5">
           <div className={`flex items-center gap-2 overflow-hidden ${sidebarOpen ? '' : 'justify-center'}`}>
             <div className="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center shrink-0">
@@ -160,7 +178,7 @@ const AdminDashboard = () => {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-white/5">
+        <div className="p-3 border-t border-white/5 space-y-2">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? '' : 'justify-center'}`}
@@ -168,11 +186,17 @@ const AdminDashboard = () => {
             <LogOut size={18} className="shrink-0 rotate-180" />
             {sidebarOpen && <span>Collapse</span>}
           </button>
+          
+          {sidebarOpen && (
+            <div className="text-center pt-2 pb-1 text-[10px] text-slate-500 uppercase tracking-widest font-semibold border-t border-white/5">
+              Admin by <span className="text-primary-400">Ritik Jain</span>
+            </div>
+          )}
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto p-6">
+      <main className="flex-1 overflow-auto p-4 sm:p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -306,48 +330,7 @@ const AdminDashboard = () => {
 
         {activeTab === 'features' && <FeatureToggle />}
 
-        {activeTab === 'system' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { label: 'Backend Server', status: 'online', detail: API_BASE_URL, icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-500/10' },
-                { label: 'MongoDB Database', status: 'connected', detail: 'Atlas cluster', icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-500/10' },
-                { label: 'OpenAI API', status: 'check .env', detail: 'OPENAI_API_KEY required', icon: AlertTriangle, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
-                { label: 'Razorpay Payments', status: 'check .env', detail: 'RAZORPAY keys required', icon: AlertTriangle, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
-              ].map(({ label, status, detail, icon: Ic, color, bg }) => (
-                <div key={label} className="glass rounded-2xl border border-white/5 p-5 flex items-center gap-4">
-                  <div className={`p-3 rounded-xl ${bg}`}>
-                    <Ic size={22} className={color} />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white text-sm">{label}</p>
-                    <p className={`text-xs font-medium ${color} capitalize`}>{status}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="glass rounded-2xl border border-white/5 p-5">
-              <h3 className="font-bold text-white mb-3">Environment Configuration</h3>
-              <div className="space-y-2 font-mono text-xs">
-                {[
-                  { key: 'NODE_ENV', hint: 'development | production' },
-                  { key: 'MONGODB_URI', hint: 'mongodb+srv://...' },
-                  { key: 'JWT_SECRET', hint: 'your-secret-key' },
-                  { key: 'OPENAI_API_KEY', hint: 'sk-...' },
-                  { key: 'RAZORPAY_KEY_ID', hint: 'rzp_...' },
-                  { key: 'RAZORPAY_KEY_SECRET', hint: 'your-secret' },
-                ].map(({ key, hint }) => (
-                  <div key={key} className="flex items-center gap-4 p-2.5 bg-surface/40 rounded-lg">
-                    <span className="text-primary-400 w-44 shrink-0">{key}</span>
-                    <span className="text-slate-500">= {hint}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        {activeTab === 'settings' && <AdminSettings />}
       </main>
     </div>
   );

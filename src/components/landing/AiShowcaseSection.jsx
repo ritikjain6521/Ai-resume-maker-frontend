@@ -9,14 +9,14 @@ const AiShowcaseSection = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Powered by Next-Gen AI</h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Not just a resume builder. It's your personal AI career assistant working 24/7.</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Powered by Next-Gen AI</h2>
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Not just a resume builder. It's your personal AI career assistant working 24/7.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           
           {/* Main AI Chat Interface Mockup */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-xl flex flex-col h-[500px]">
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-xl flex flex-col min-h-[400px] sm:min-h-[500px]">
             <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100 dark:border-white/10">
               <div className="bg-primary-50 dark:bg-primary-500/20 p-2 rounded-lg text-primary-600 dark:text-primary-400"><Sparkles size={24} /></div>
               <div>

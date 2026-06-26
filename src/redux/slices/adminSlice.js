@@ -9,6 +9,7 @@ const initialState = {
   resumes: [],
   totalResumes: 0,
   subscriptionStats: null,
+  settings: null,
   isLoading: false,
   featureToggles: JSON.parse(localStorage.getItem('adminFeatureToggles') || JSON.stringify({
     grammarCheck: { Basic: false, Premium: true, Pro: true },
@@ -51,6 +52,9 @@ const adminSlice = createSlice({
     setSubscriptionStats: (state, action) => {
       state.subscriptionStats = action.payload;
     },
+    setAdminSettings: (state, action) => {
+      state.settings = action.payload;
+    },
     setAdminLoading: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -69,6 +73,7 @@ export const {
   removeAdminUser,
   setAdminResumes,
   setSubscriptionStats,
+  setAdminSettings,
   setAdminLoading,
   updateFeatureToggle,
 } = adminSlice.actions;

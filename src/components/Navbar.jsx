@@ -66,12 +66,14 @@ const Navbar = () => {
         <div className="flex justify-between h-20 items-center">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <div className="bg-primary-500 p-2 rounded-xl text-white shadow-lg shadow-primary-500/30">
-              <FileText size={22} />
-            </div>
-            <span className="font-display font-bold text-lg text-slate-800 dark:text-white tracking-wide">
-              Resume<span className="text-primary-500">AI</span>
+          <Link to="/" className="flex items-center gap-2 shrink-0 group">
+            <img 
+              src="/logo.svg" 
+              alt="ResumeNova Logo" 
+              className="w-10 h-10 drop-shadow-md group-hover:scale-105 transition-transform"
+            />
+            <span className="font-display font-bold text-xl text-slate-800 dark:text-white tracking-wide">
+              Resume<span className="text-primary-500">Nova</span>
             </span>
           </Link>
 

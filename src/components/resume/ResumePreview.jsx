@@ -334,7 +334,195 @@ const CertItem = ({ item }) => (
 );
 
 // ─────────────────────────────────────────────
-// Main export - dispatcher
+// TEMPLATE: Nova Premium (Premium) – two-column elegant
+// ─────────────────────────────────────────────
+const NovaPremiumTemplate = ({ resume }) => {
+  const p = resume.personalInfo || {};
+  return (
+    <div className="bg-white text-black w-full h-full font-['Inter',sans-serif] flex overflow-hidden">
+      {/* Left Sidebar */}
+      <div className="w-[35%] bg-emerald-800 text-white p-6 h-full flex flex-col">
+        <h1 className="text-[20px] font-bold leading-tight uppercase tracking-widest text-emerald-100">{p.firstName}</h1>
+        <h1 className="text-[20px] font-bold leading-tight uppercase tracking-widest">{p.lastName}</h1>
+        {p.targetRole && <p className="text-[10px] text-emerald-300 mt-2 font-medium tracking-wide uppercase">{p.targetRole}</p>}
+        
+        <div className="mt-8 space-y-2 text-[9.5px] text-emerald-100/90 font-light">
+          {p.email && <div>{p.email}</div>}
+          {p.phone && <div>{p.phone}</div>}
+          {p.address && <div>{p.address}</div>}
+          {p.linkedIn && <div className="truncate">{p.linkedIn}</div>}
+          {p.github && <div className="truncate">{p.github}</div>}
+        </div>
+
+        {resume.skills?.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-[11px] font-bold tracking-widest uppercase border-b border-emerald-600 pb-1 mb-3 text-emerald-300">Skills</h3>
+            <div className="flex flex-wrap gap-1.5">
+              {resume.skills.map((s, i) => (
+                <span key={i} className="text-[9px] bg-emerald-700/50 px-2 py-0.5 rounded-sm">{s}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {resume.certifications?.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-[11px] font-bold tracking-widest uppercase border-b border-emerald-600 pb-1 mb-3 text-emerald-300">Certifications</h3>
+            <div className="space-y-3">
+              {resume.certifications.map((c, i) => (
+                <div key={i} className="text-[9.5px]">
+                  <div className="font-bold">{c.name}</div>
+                  <div className="text-emerald-300 text-[8.5px] mt-0.5">{c.issuer} | {c.date}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Main Content */}
+      <div className="w-[65%] p-6 bg-white h-full">
+        <div className="space-y-5">
+          {p.summary && (
+            <Section title="PROFILE" titleStyle="font-bold text-[12px] uppercase text-emerald-800 tracking-wider mb-2">
+              <p className="text-[10px] leading-relaxed text-gray-700">{p.summary}</p>
+            </Section>
+          )}
+
+          {resume.experience?.length > 0 && (
+            <Section title="EXPERIENCE" titleStyle="font-bold text-[12px] uppercase text-emerald-800 tracking-wider mb-2">
+              <div className="space-y-4">
+                {resume.experience.map((e, i) => (
+                  <div key={i}>
+                    <div className="flex justify-between items-baseline">
+                      <span className="font-bold text-[10.5px] text-gray-900">{e.title}</span>
+                      <span className="text-[9px] text-emerald-700 font-medium shrink-0 ml-2">{e.startDate}{e.startDate && ' - '}{e.current ? 'Present' : e.endDate}</span>
+                    </div>
+                    <div className="text-[9.5px] text-gray-600 italic mb-1">{e.company}{e.location && `, ${e.location}`}</div>
+                    {e.description && <p className="text-[9.5px] text-gray-700 whitespace-pre-wrap leading-relaxed">{e.description}</p>}
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {resume.projects?.length > 0 && (
+            <Section title="PROJECTS" titleStyle="font-bold text-[12px] uppercase text-emerald-800 tracking-wider mb-2">
+              <div className="space-y-3">
+                {resume.projects.map((pr, i) => (
+                  <div key={i}>
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-bold text-[10.5px] text-gray-900">{pr.name}</span>
+                      {pr.link && <span className="text-[8.5px] text-emerald-600">{pr.link}</span>}
+                    </div>
+                    {pr.technologies && <div className="text-[8.5px] text-gray-500 italic mt-0.5">{pr.technologies}</div>}
+                    {pr.description && <p className="text-[9.5px] text-gray-700 mt-1 whitespace-pre-wrap leading-relaxed">{pr.description}</p>}
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {resume.education?.length > 0 && (
+            <Section title="EDUCATION" titleStyle="font-bold text-[12px] uppercase text-emerald-800 tracking-wider mb-2">
+              <div className="space-y-3">
+                {resume.education.map((e, i) => (
+                  <div key={i} className="flex justify-between items-start">
+                    <div>
+                      <div className="font-bold text-[10.5px] text-gray-900">{e.school}</div>
+                      <div className="text-[9.5px] text-gray-700">{e.degree}{e.fieldOfStudy && ` in ${e.fieldOfStudy}`}</div>
+                      {e.gpa && <div className="text-[8.5px] text-gray-500 mt-0.5">GPA: {e.gpa}</div>}
+                    </div>
+                    <span className="text-[9px] text-emerald-700 font-medium shrink-0 ml-2">{e.startDate}{e.startDate && ' - '}{e.endDate}</span>
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// TEMPLATE: Nova Pro (Pro) – stunning header
+// ─────────────────────────────────────────────
+const NovaProTemplate = ({ resume }) => {
+  const p = resume.personalInfo || {};
+  return (
+    <div className="bg-amber-50 text-black w-full h-full font-['Outfit',sans-serif] text-[11px] leading-[1.4] overflow-hidden">
+      {/* Heavy Header */}
+      <div className="bg-amber-700 text-white px-8 pt-8 pb-10 relative">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-amber-600/30 rounded-bl-full pointer-events-none"></div>
+        <h1 className="text-[28px] font-bold uppercase tracking-[2px] leading-none mb-1">{p.firstName} {p.lastName}</h1>
+        {p.targetRole && <p className="text-[12px] text-amber-200 uppercase tracking-widest font-medium mb-3">{p.targetRole}</p>}
+        
+        <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-[9px] text-white/90 font-light max-w-lg mt-4">
+          <ContactItem>{p.email}</ContactItem>
+          <ContactItem>{p.phone}</ContactItem>
+          <ContactItem>{p.address}</ContactItem>
+          <ContactItem>{p.linkedIn}</ContactItem>
+          <ContactItem>{p.github}</ContactItem>
+        </div>
+      </div>
+
+      <div className="px-8 py-6 -mt-4 bg-white mx-4 rounded-t-xl shadow-lg h-full space-y-4">
+        {p.summary && (
+          <Section title="Professional Summary" accent="border-amber-700" titleStyle="font-bold text-[13px] text-amber-800 border-b-2 border-amber-200 mb-2 pb-0.5 inline-block">
+            <p className="text-[10px] leading-relaxed text-gray-700">{p.summary}</p>
+          </Section>
+        )}
+
+        <div className="flex gap-6">
+          <div className="w-[60%] space-y-4">
+            {resume.experience?.length > 0 && (
+              <Section title="Work Experience" accent="border-amber-700" titleStyle="font-bold text-[13px] text-amber-800 border-b-2 border-amber-200 mb-2 pb-0.5 inline-block">
+                {resume.experience.map((e, i) => <ExpItem key={i} item={e} accent="text-amber-800" />)}
+              </Section>
+            )}
+            
+            {resume.projects?.length > 0 && (
+              <Section title="Key Projects" accent="border-amber-700" titleStyle="font-bold text-[13px] text-amber-800 border-b-2 border-amber-200 mb-2 pb-0.5 inline-block">
+                {resume.projects.map((pr, i) => <ProjItem key={i} item={pr} accent="text-amber-800" />)}
+              </Section>
+            )}
+          </div>
+          
+          <div className="w-[40%] space-y-4">
+            {resume.skills?.length > 0 && (
+              <Section title="Core Competencies" accent="border-amber-700" titleStyle="font-bold text-[13px] text-amber-800 border-b-2 border-amber-200 mb-2 pb-0.5 inline-block">
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  {resume.skills.map((s, i) => (
+                    <span key={i} className="text-[9px] bg-amber-50 text-amber-800 border border-amber-200 px-2 py-1 rounded shadow-sm">{s}</span>
+                  ))}
+                </div>
+              </Section>
+            )}
+
+            {resume.education?.length > 0 && (
+              <Section title="Education" accent="border-amber-700" titleStyle="font-bold text-[13px] text-amber-800 border-b-2 border-amber-200 mb-2 pb-0.5 inline-block">
+                {resume.education.map((e, i) => (
+                  <div key={i} className="mb-2 last:mb-0">
+                    <div className="font-bold text-[10px] text-gray-900">{e.school}</div>
+                    <div className="text-[9px] text-gray-700">{e.degree}{e.fieldOfStudy && ` in ${e.fieldOfStudy}`}</div>
+                    <div className="text-[8px] text-amber-600 font-medium">{e.startDate}{e.startDate && ' - '}{e.endDate}</div>
+                  </div>
+                ))}
+              </Section>
+            )}
+
+            {resume.certifications?.length > 0 && (
+              <Section title="Certifications" accent="border-amber-700" titleStyle="font-bold text-[13px] text-amber-800 border-b-2 border-amber-200 mb-2 pb-0.5 inline-block">
+                {resume.certifications.map((c, i) => <CertItem key={i} item={c} />)}
+              </Section>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 // ─────────────────────────────────────────────
 const TEMPLATE_MAP = {
   modern: ModernTemplate,
@@ -346,6 +534,8 @@ const TEMPLATE_MAP = {
   developer: DeveloperTemplate,
   'pro-elegant': ProElegantTemplate,
   'ats-max': AtsMaxTemplate,
+  'nova-premium': NovaPremiumTemplate,
+  'nova-pro': NovaProTemplate,
 };
 
 const ResumePreview = ({ resume }) => {

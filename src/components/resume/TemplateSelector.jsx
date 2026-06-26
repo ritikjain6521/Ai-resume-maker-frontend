@@ -68,6 +68,15 @@ const TEMPLATES = [
     colors: { bg: 'bg-gray-900', accent: 'bg-green-500', text: 'text-green-700' },
     tag: 'For Engineers',
   },
+  {
+    id: 'nova-premium',
+    name: 'Nova Premium',
+    desc: 'Two-column, modern elegant',
+    plan: 'Premium',
+    ats: 92,
+    colors: { bg: 'bg-emerald-800', accent: 'bg-emerald-400', text: 'text-emerald-700' },
+    tag: 'New',
+  },
   // ── PRO PLAN ──
   {
     id: 'pro-elegant',
@@ -86,6 +95,15 @@ const TEMPLATES = [
     ats: 100,
     colors: { bg: 'bg-gray-800', accent: 'bg-gray-300', text: 'text-gray-700' },
     tag: '100% ATS',
+  },
+  {
+    id: 'nova-pro',
+    name: 'Nova Pro',
+    desc: 'Stunning header, professional layout',
+    plan: 'Pro',
+    ats: 98,
+    colors: { bg: 'bg-amber-700', accent: 'bg-amber-400', text: 'text-amber-800' },
+    tag: 'Premium Look',
   },
 ];
 

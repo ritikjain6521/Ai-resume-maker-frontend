@@ -24,6 +24,15 @@
 }
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
   :root {
     --bg-color: #f8fafc;
     --surface-color: #ffffff;
@@ -43,7 +52,13 @@
   body {
     background-color: var(--bg-color);
     color: var(--text-color);
+    overflow-x: hidden;
     @apply antialiased font-sans transition-colors duration-300;
+  }
+
+  img, video, svg {
+    max-width: 100%;
+    height: auto;
   }
   
   h1, h2, h3, h4, h5, h6 {
