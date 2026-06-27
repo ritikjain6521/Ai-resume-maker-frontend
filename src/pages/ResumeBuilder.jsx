@@ -6,7 +6,7 @@ import {
   resetCurrentResume, setSaving, setLoading 
 } from '../redux/slices/resumeSlice';
 import { 
-  Wand2, Download, Eye, 
+  Wand2, Download, Eye, FileDown, FileText as FileTextIcon, 
   BookOpen, Loader2, Save, Target, SpellCheck, Settings, 
   ChevronLeft, ChevronRight, ArrowLeft, Lock, FileSignature
 } from 'lucide-react';
@@ -60,6 +60,7 @@ const ResumeBuilder = () => {
   const [showAtsModal, setShowAtsModal] = useState(false);
   const [showGrammarCheck, setShowGrammarCheck] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showExportMenu, setShowExportMenu] = useState(false);
 
   const fetchResume = async (resumeId) => {
     dispatch(setLoading(true));
@@ -99,9 +100,17 @@ const ResumeBuilder = () => {
         setIsMobilePreview(true);
       }, 0);
     }
-    if (params.get('download') === 'true') {
-      // Trigger download flow
-      setTimeout(() => alert('Downloading PDF... (Export feature logic here)'), 500);
+    
+    const dlParam = params.get('download');
+    if (dlParam) {
+      setTimeout(() => {
+        setRightPanel('preview'); // Ensure preview is active
+        if (dlParam === 'doc') {
+          handleExportDOC();
+        } else {
+          handleExportPDF();
+        }
+      }, 500);
     }
   }, [location]);
 
@@ -181,12 +190,46 @@ const ResumeBuilder = () => {
     }
   };
 
+  const handleExportPDF = () => {
+    setShowExportMenu(false);
+    window.print();
+  };
+
+  const handleExportDOC = () => {
+    setShowExportMenu(false);
+    const resumeEl = document.querySelector('.resume-print-container');
+    if (!resumeEl) {
+      alert('Resume preview not found for export.');
+      return;
+    }
+    
+    const htmlContent = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head>
+        <meta charset='utf-8'>
+        <title>${resume.title || 'Resume'}</title>
+      </head>
+      <body>
+        ${resumeEl.innerHTML}
+      </body>
+      </html>
+    `;
+    
+    const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${resume.title || 'Untitled_Resume'}.doc`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // --- Rendering Helpers ---
 
   // Simple preview component rendering
-  // Simple preview component rendering
   const renderPreview = () => (
-    <div className="w-full max-w-[800px] mx-auto scale-[0.85] md:scale-100 origin-top flex flex-col items-center justify-start">
+    <div className="w-full max-w-[800px] mx-auto scale-[0.85] md:scale-100 origin-top flex flex-col items-center justify-start resume-print-container">
       <ResumePreview resume={resume} />
     </div>
   );
@@ -314,6 +357,27 @@ const ResumeBuilder = () => {
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
               <span className="hidden sm:inline">Save</span>
             </button>
+            
+            <div className="relative hidden sm:block">
+              <button 
+                onClick={() => setShowExportMenu(!showExportMenu)}
+                className="p-2 sm:px-4 sm:py-2 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium flex items-center gap-2 transition-colors shadow-lg shadow-primary-500/20"
+              >
+                <Download size={16} />
+                <span>Export</span>
+              </button>
+              
+              {showExportMenu && (
+                <div className="absolute right-0 top-12 bg-surface border border-white/10 rounded-xl shadow-2xl z-50 py-1 w-44 animate-in fade-in slide-in-from-top-2">
+                  <button onClick={handleExportPDF} className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                    <FileDown size={16} className="text-rose-400" /> Export to PDF
+                  </button>
+                  <button onClick={handleExportDOC} className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                    <FileTextIcon size={16} className="text-blue-400" /> Export to DOC
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -430,11 +494,24 @@ const ResumeBuilder = () => {
             </button>
           ))}
           <div className="flex-1" />
-          <button 
-            className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-semibold transition-colors shrink-0"
-          >
-            <Download size={16} /> Export
-          </button>
+          <div className="relative shrink-0 flex items-center">
+            <button 
+              onClick={() => setShowExportMenu(!showExportMenu)}
+              className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-semibold transition-colors"
+            >
+              <Download size={16} /> Export
+            </button>
+            {showExportMenu && (
+              <div className="absolute right-0 top-12 bg-surface border border-white/10 rounded-xl shadow-2xl z-50 py-1 w-44 animate-in fade-in slide-in-from-top-2">
+                <button onClick={handleExportPDF} className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                  <FileDown size={16} className="text-rose-400" /> Export to PDF
+                </button>
+                <button onClick={handleExportDOC} className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                  <FileTextIcon size={16} className="text-blue-400" /> Export to DOC
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Header Tabs (Desktop) */}

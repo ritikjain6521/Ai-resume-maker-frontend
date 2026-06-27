@@ -86,7 +86,8 @@ const ResumeCard = ({ resume, onDelete, onDuplicate, onDownload }) => {
                 {[
                   { icon: Edit2, label: 'Edit', action: () => navigate(`/builder/${resume._id}`) },
                   { icon: Eye, label: 'Preview', action: () => navigate(`/builder/${resume._id}?preview=true`) },
-                  { icon: Download, label: 'Download PDF', action: () => { onDownload(resume._id); setMenuOpen(false); } },
+                  { icon: Download, label: 'Download PDF', action: () => { onDownload(resume._id, 'pdf'); setMenuOpen(false); } },
+                  { icon: FileText, label: 'Download DOC', action: () => { onDownload(resume._id, 'doc'); setMenuOpen(false); } },
                   { icon: Copy, label: 'Duplicate', action: () => { onDuplicate(resume._id); setMenuOpen(false); } },
                   { icon: Trash2, label: 'Delete', action: () => { onDelete(resume._id); setMenuOpen(false); }, danger: true },
                 ].map(({ icon: Ic, label, action, danger }) => (

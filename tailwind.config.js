@@ -19,8 +19,8 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         },
-        background: '#0f172a',
-        surface: '#1e293b',
+        background: 'var(--bg-color)',
+        surface: 'var(--surface-color)',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -94,11 +94,11 @@ const ResumeManager = () => {
     } catch { alert('Could not duplicate — backend unavailable.'); }
   };
 
-  const handleDownload = async (id) => {
+  const handleDownload = async (id, format = 'pdf') => {
     try {
       await fetch(`${API}/resumes/${id}/download`, { method: 'POST', credentials: 'include' });
     } catch { /* ignore */ }
-    navigate(`/builder/${id}?download=true`);
+    navigate(`/builder/${id}?download=${format}`);
   };
 
   // Sort & filter
@@ -324,7 +324,8 @@ const ResumeManager = () => {
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button onClick={() => navigate(`/builder/${resume._id}`)} className="px-2.5 py-1 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 text-xs font-medium rounded-lg hover:bg-primary-100 dark:hover:bg-primary-500/20 transition-colors">Edit</button>
-                        <button onClick={() => handleDownload(resume._id)} className="px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-xs font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">Download</button>
+                        <button onClick={() => handleDownload(resume._id, 'pdf')} className="px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-xs font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">PDF</button>
+                        <button onClick={() => handleDownload(resume._id, 'doc')} className="px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-xs font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">DOC</button>
                         <button onClick={() => handleDelete(resume._id)} className="px-2.5 py-1 bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-medium rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 transition-colors">Delete</button>
                       </div>
                     </td>

@@ -107,3 +107,32 @@
     border-radius: 10px;
   }
 }
+
+@media print {
+  body {
+    background: white !important;
+  }
+  
+  /* Hide everything by default when printing */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Only show the resume preview container and its children */
+  .resume-print-container, 
+  .resume-print-container * {
+    visibility: visible;
+  }
+  
+  /* Reset positioning so it prints nicely on the page */
+  .resume-print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
